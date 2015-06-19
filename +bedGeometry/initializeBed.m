@@ -1,4 +1,6 @@
 function P = initializeBed(P,N)                             %INITIALIZE BED
+import bedGeometry.*        % Package of functions controlling bed Geometry
+
 %**************************************************************************
 %   Makes an array of structure arrays which represents a collection of 
 %circular particles, then places them as if they'd fallen onto the floor 

@@ -1,6 +1,6 @@
 %DATA ANALYSIS 
 %extract data from P into variable mG, mD and uft
-N = 14700;             %Psudeo Size for whatever matrix we are working with 
+N = 50;             %Psudeo Size for whatever matrix we are working with 
 for i=1:N
     if Ptot(i).top
         Ptot(i).mG = Ptot(i).mG/Ptot(i).r;

@@ -1,4 +1,6 @@
 function averageHeight = averageHeight(P,N) %CALCULATE AVERAGE HEIGHT OF SURFACE
+import bedGeometry.*        % Package of functions controlling bed Geometry
+
     averageHeight = 0;
     n = 0;
     for i=1:N

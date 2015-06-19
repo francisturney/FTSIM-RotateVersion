@@ -1,6 +1,6 @@
 %DATA ANALYSIS 
 %extract data from P into variable mG, mD and uft
-N = 20250;             %Psudeo Size for whatever matrix we are working with 
+N = 50;             %Psudeo Size for whatever matrix we are working with 
 mG=[];
 mD=[];
 windSpeed=[];

@@ -1,4 +1,6 @@
 function P = place(P,i,final,init)  %Places P(i) in between P(final) and P(init) through the intersection of two circles
+import bedGeometry.*                % Package of functions controlling bed Geometry
+     
      r1 = P(init).r + P(i).r;       %radius of circle one                               
      r2 = P(final).r + P(i).r;      %radius of circle two 
      

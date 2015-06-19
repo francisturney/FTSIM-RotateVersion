@@ -1,4 +1,6 @@
 function P = floorSet(P,i,init,c)                       %Set the particle on floor
+import bedGeometry.*                     % Package of functions controlling bed Geometry
+
     x = 0;                                              %assin a dummy x that will be assigned to P(i).x later on
     if c == 1
         x = (P(init).x + sqrt((P(init).r + P(i).r).^2 - (P(i).r - P(init).y).^2)); %intersection of y = r and circle

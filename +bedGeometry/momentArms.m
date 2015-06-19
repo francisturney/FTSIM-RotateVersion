@@ -1,4 +1,6 @@
 function P = momentArms(P,N)%CALCULATE MOMENT ARMS AND ASSIGN PIVOT POINTS
+import bedGeometry.*        % Package of functions controlling bed Geometry
+
     theta = 0;                                                  %theta is the angle between gravity force and lever arm
     beta = 0;                                                   %beta is the angle between drag force and lever arm
     for i=1:N

@@ -1,4 +1,6 @@
 function P = assnPivot(P,N)         %ASSIGN PIVOT PARTICLES 
+import bedGeometry.*        % Package of functions controlling bed Geometry
+
     for i = 1:N                                                           %initialize to zero
         P(i).piv = 0;
     end

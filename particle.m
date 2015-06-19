@@ -1,4 +1,4 @@
-classdef particleGeometry
+classdef particle
     methods (Static)
          function text = firstCommand()
            text = 'firstCommandOmatic'; 

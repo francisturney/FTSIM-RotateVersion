@@ -1,5 +1,7 @@
 function P = idTopOld(P,N)                         %IDENTIFY TOP LAYER OF PARTICLES BY ASSIGNING P(I).TOP TO TRUE OR FALSE
-   for i=1:N                                               %reset top
+import bedGeometry.*        % Package of functions controlling bed Geometry
+ 
+    for i=1:N                                               %reset top
         P(i).top = false; 
     end
     for i=50:120

@@ -1,4 +1,6 @@
 function touching = touching(P,i,init,prevInit)             %IS P(I) TOUCHING ANY PARTICLE OTHER THANK P(MAX)AND P(PREVMIN)
+import bedGeometry.*        % Package of functions controlling bed Geometry
+
     touching = 0;
     for j=(i-1):-1:1                                        %Check particles starting with last
           if ((j == init) || (j == 0)) || (j == prevInit)   %if expceptions

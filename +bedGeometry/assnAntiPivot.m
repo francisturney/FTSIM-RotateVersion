@@ -1,4 +1,6 @@
 function P = assnAntiPivot(P,N) %ASSIGN ANTI-PIVOT PARTICLES & CREATE ANTI-PIVOT POINT                   
+import bedGeometry.*        % Package of functions controlling bed Geometry
+
     [P.antiPiv]=deal(0);                                                     %intialize feild to 0
     [P.antiPivPoint]=deal(0);                                                %initialize feild to 0
     for i=1:N

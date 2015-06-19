@@ -1,5 +1,6 @@
 function P = idTop(P,N)                         %IDENTIFY TOP LAYER OF PARTICLES BY ASSIGNING P(I).TOP TO TRUE OR FALSE
-  for i=1:N                                               %reset top
+import bedGeometry.*        % Package of functions controlling bed Geometry  
+    for i=1:N                                               %reset top
         if P(i).top == true;    
             k=0;                              % Counter for touching above positioned particles
             for j=1:N
