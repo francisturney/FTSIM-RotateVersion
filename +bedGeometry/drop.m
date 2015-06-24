@@ -1,18 +1,20 @@
-function [P,i,init,c] = drop(P,i,init,c)          %Drop P(i) to find P(init) or place on ground
-import bedGeometry.*        % Package of functions controlling bed Geometry
+function [] = drop(particleArray,j)          % Drop jth paticle in particle array, determine index of who jth particle touches, 
+                                             % and align jth particle on the surface of the particle it touches
+import bedGeometry.*                         % Package of functions controlling bed Geometry
+jthParticle = particleArray(j);              % More readable notation
 
-    while (P(i).y > P(i).r)                         
-        	P(i).y = P(i).y-.5;                   %Drop P(i).y by some amount
-            P(i).center=[P(i).x, P(i).y];
-            if P(i).y < P(i).r                    %If P(i) passes the floor place it there
-               P(i).y = P(i).r;
-               P(i).center=[P(i).x, P(i).y];
+    while (jthParticle.y > jthParticle.r)                         
+        	jthParticle.y = jthParticle.y-.5;                   % Move jth particle downward by some increment
+            jthParticle.center=[jthParticle.x, jthParticle.y];  % Update center
+            if jthParticle.y < jthParticle.r                    % If jth particle's center passes the floor place it there
+               jthParticle.y = jthParticle.r;
+               jthParticle.center=[jthParticle.x, jthParticle.y];
                break
             end
-            if touching(P,i,i,i) ~= 0             %If P(i) touches another particle
-                init = touching(P,i,i,i);         %denote particle index Max 
-                c = whichSide(P,i,init);          %Determine if P(i) is left or right of P(init)
-                P = allign(P,i,init,c);           %allign P(i) on P(init)
+            if touching(particleArray,j) ~= 0                                   % If jth particle touches another particle (touching returns index of the touched)
+                jthParticle.touch = touching(particleArray,j);                  % Denote intex of touched paticle in jthParticle.touch 
+                jthParticle.LR = whichSide(particleArray,j);                    % Determine orientation of jth paticle against closest neighbor
+                allign(particleArray,j);                                        % allign jthParticle on the surface of the particle its touching
                 break
             end
             

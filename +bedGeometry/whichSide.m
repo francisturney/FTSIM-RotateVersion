@@ -1,10 +1,15 @@
-function c = whichSide(P,i,j) %which side of P(j) is P(i) on (left/right) (c=-1,c=1)
-import bedGeometry.*        % Package of functions controlling bed Geometry
+function LR = whichSide(particleArray,j)          % Which side of P(j) is P(i) on (left/right) (c=-1,c=1)
     
-    c = -1;
-    if (P(i).x > P(j).x) 
-        c = 1;
+    % Declare 
+    import bedGeometry.*                                % Package of functions controlling bed Geometry
+    jthParticle = particleArray(j);                     % Simplify notation
+    jTouched = particleArray(particleArray(j).touch);   % Particle that jth particle is touching
+    
+    jthParticle.LR = -1;                                % Derermine which side of the touching particle the jth particle is on 
+    if (jthParticle.x > jTouched.x) 
+        jthParticle.LR = 1;
     else
-        c = -1;
+        jthParticle.LR = -1;
     end
+    LR = jthParticle.LR;
 end 
