@@ -1,13 +1,20 @@
-function P = floorSet(P,i,init,c)                       %Set the particle on floor
-import bedGeometry.*                     % Package of functions controlling bed Geometry
+% floorSet
+% Sets the jth particle between the floor and the particle it's touching
+% Inputs : Particle array and index of the particle you want to set between
+% the floor and it's neighbor
+function particleArray = floorSet(particleArray,j)                       % Set the particle on floor
+import bedGeometry.*                             % Package of functions controlling bed Geometry
 
-    x = 0;                                              %assin a dummy x that will be assigned to P(i).x later on
-    if c == 1
-        x = (P(init).x + sqrt((P(init).r + P(i).r).^2 - (P(i).r - P(init).y).^2)); %intersection of y = r and circle
+    P = particleArray;                           % Simplify notation
+    jthParticle = particleArray(j);              % ...
+    touch = jthParticle.touching;                % ... 
+    x = 0;                                       % Assin a dummy x that will be assigned to P(i).x later on
+    if jthParticle.LR == 1
+        x = (P(touch).x + sqrt((P(touch).r + P(j).r).^2 - (P(j).r - P(touch).y).^2)); %intersection of y = r and circle
     else
-        x = (P(init).x - sqrt((P(init).r + P(i).r).^2 - (P(i).r - P(init).y).^2)); %intersection of y = r and circle 
+        x = (P(touch).x - sqrt((P(touch).r + P(j).r).^2 - (P(j).r - P(touch).y).^2)); %intersection of y = r and circle 
     end
-    P(i).x = x;
-    P(i).y = P(i).r;
-    P(i).center = [P(i).x,P(i).y];
+    P(j).x = x;
+    P(j).y = P(j).r;
+    P(j).center = [P(j).x,P(j).y];
 end

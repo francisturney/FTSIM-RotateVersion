@@ -11,8 +11,8 @@ jthParticle = particleArray(j);              % More readable notation
                jthParticle.center=[jthParticle.x, jthParticle.y];
                break
             end
-            if touching(particleArray,j) ~= 0                                   % If jth particle touches another particle (touching returns index of the touched)
-                jthParticle.touch = touching(particleArray,j);                  % Denote intex of touched paticle in jthParticle.touch 
+            if isTouching(particleArray,j) ~= 0                                   % If jth particle touches another particle (touching returns index of the touched)
+                jthParticle.touching = isTouching(particleArray,j);                  % Denote intex of touched paticle in jthParticle.touch 
                 jthParticle.LR = whichSide(particleArray,j);                    % Determine orientation of jth paticle against closest neighbor
                 allign(particleArray,j);                                        % allign jthParticle on the surface of the particle its touching
                 break

@@ -9,11 +9,11 @@ function touching = isTouching(particleArray,j)
     touching = 0;
     for k=(j-1):-1:1                                        % Check if particles touching starting with last
         kthParticle = particleArray(k);                     % Easier to read notation                                           
-          if k == jthParticle.touching || (k == 0) || (k == jthParticle.prevTouch) %|| (k == jthParticle.landing)   % Don't consider the particles that the jth Particle
+          if k == touch || (k == 0) || (k == jthParticle.prevTouch) %|| (k == jthParticle.landing)   % Don't consider the particles that the jth Particle
                 continue                                                              % have already been placed against
           end
               if pdist([jthParticle.center; kthParticle.center],'euclidean') <= (jthParticle.r + kthParticle.r) %If distance between particles is less than the
-                  touching = k;                                                                               %the sum of radii then they are touching 
+                  touching = k                                                                               %the sum of radii then they are touching 
                   return
               end         
     end

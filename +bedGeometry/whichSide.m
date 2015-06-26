@@ -3,13 +3,12 @@ function LR = whichSide(particleArray,j)          % Which side of P(j) is P(i) o
     % Declare 
     import bedGeometry.*                                % Package of functions controlling bed Geometry
     jthParticle = particleArray(j);                     % Simplify notation
-    jTouched = particleArray(particleArray(j).touch);   % Particle that jth particle is touching
+    jTouched = particleArray(particleArray(j).touching);   % Particle that jth particle is touching
     
-    jthParticle.LR = -1;                                % Derermine which side of the touching particle the jth particle is on 
+    LR = -1;                                % Derermine which side of the touching particle the jth particle is on 
     if (jthParticle.x > jTouched.x) 
-        jthParticle.LR = 1;
+        LR = 1;
     else
-        jthParticle.LR = -1;
+        LR = -1;
     end
-    LR = jthParticle.LR;
 end 

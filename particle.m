@@ -1,7 +1,7 @@
 classdef particle < handle
     properties
         % Particle Geometry and Forces
-        radius                  % Radius of assumed spherical particle
+        r                       % Radius of assumed spherical particle
         x                       % X position of particle
         y                       % Y postition of particle
         center = [0,0]          % 2D particle center loctation for Matlab functions
@@ -13,26 +13,27 @@ classdef particle < handle
         pivotPoint              % Location of pivot point (considering a left to right wind)
         
         % Indicies of adjacent particles and orientation
-        touching = 0;               %particle i has landed on
-        landing = 0;              %particle i will land on
-        prevTouch = 0;           %init from previous loop  
-        LR = 0;                  %particle oriantation coeficint: (-1) for left (1) for right
+        touching = 0;           % Particle that the jth particle has landed on
+        landing = 0;            % Particle that the jth particel will land on
+        prevTouch = 0;          % Pouching particle from previous loop  
+        LR = 0;                 % Particle oriantation coeficint: (-1) for left (1) for right
 
-        
+       
     end
     methods
+        % Constructor
         function particle = particle(radius, stdDeviation)              % Constructor
             if  nargin == 0
-                particle.radius = 4 + 1.*randn(1,1);                       %Particle radius  
+                particle.r = 4 + 1.*randn(1,1);                       %Particle radius  
                 particle.x = 20 + (120).*rand(1);                          %x coordinate of center                                         
                 particle.y = 70;                                           %y coordinate of center
                 particle.center = [particle.x,particle.y];   
             end
         end
+        
         function [] = change(particleArray)
-            particleArray(1).radius = 0;
+            particleArray(1).r = 0;
         end
-    
         function particle = move(particle, timeStep)
            if particle.accel ~= [0,0,0];
                
