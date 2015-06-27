@@ -1,0 +1,80 @@
+% Script: Main
+% Description:  Creates a 2D bed of circular particles, calulates drag and gravity forces for the
+% top row, and computes the fluid threshold for each particle. Statistics are gathered and presented at the end.
+clear
+
+% Set Up
+import bedGeometry.*                               % Package of functions controlling bed Geometry
+import dataAnalysis.*                              % Package of functions for data analysis and calculation
+import particle
+tic
+
+% User Inputs
+nParticles = 50;            % Number of particles per bed formation
+mRepetitions = 1;           % Number of times a bed is created and data colected
+                            % Total number of particles created is mIterations times nParticles
+                            % Total number canidates for movement will vary
+Cd = 20;                    % Drag Coeficient
+k = 0.41;                   % Von karmen constant
+rhoAir = 1.2041;            % Density of air (kg/m^3) sea level from wikipedia
+rhoSand = 2650;             % Density of quarts sand (kg/m^3) taken from midpoint of top and bottom values on engineeringtoolbox.com             
+g = 9.80665;                % Acceleration due to gravity (m/s^2) by convention 
+z0 = 4/3;                   % Roughness Length  
+
+% Preallocate Memory
+particleArray(nParticles) = particle;           
+totalParticleArray(nParticles*mRepetitions) = particle; 
+
+for i=1:(mRepetitions)
+    fprintf('On repetition number %f\n',i);
+    try
+
+    % Initialize Bed       
+    for j=1:nParticles
+        fprintf('On particle %i\n',j)               % print progress
+        
+        particleArray(j) = particle;                % Create particle
+        setParticle(particleArray,j);               % Set it in the bed               
+    end    
+ 
+    % Identify Top Row of Particles
+    idTop(particleArray,nParticles);
+    
+    % Calculate Average Height of Top Row
+    ave = averageHeight(particleArray,nParticles);
+    
+    % Identify Canidates For Movement
+    idCFM(particleArray,nParticles,ave);
+    
+    % Assign Pivot Point and Moment Arms 
+    assnPivot(particleArray,nParticles);
+
+    % Assign Lift Point (for area exposed)                   
+    assnLift(particleArray,nParticles);
+   
+    % Find the Fluid Threshold Shear Velocity For Each Particle
+    solveUft(particleArray,nParticles,Cd,k,rhoAir,rhoSand,g,z0,ave);
+
+    P = gatherData(particleArray,nParticles);
+    Print(particleArray, nParticles, ave);
+    pause;
+    
+    % Normalize Moment Arms
+    NormalizeMomentArms(particleArray,nParticles);
+
+% Assimilate particle array into total particle Array    
+        if i==1
+            totalParticleArray = particleArray;
+        else
+            totalParticleArray = [totalParticleArray,particleArray];
+        end
+     catch
+        disp('error')
+     continue
+    end
+    end
+end
+toc
+elapsedTime = toc/60;                                           %give run time in seconds and minutes
+fprintf('or %d minutes\n',elapsedTime)
+%MODEL STOP

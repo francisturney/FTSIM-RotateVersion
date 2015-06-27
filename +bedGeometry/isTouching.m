@@ -3,6 +3,7 @@
 % Outputs : Index of the particle that the jth particle is touching (touching). 
     % If the jth particle is touching more than one particle it returns the 
     % particle with the highest index.
+    
 function touching = isTouching(particleArray,j)           
     import bedGeometry.*                                      % Package of functions controlling bed Geometry
     jthParticle = particleArray(j);                           % Easier to read notation

@@ -1,14 +1,13 @@
 % Function: solveUft
 % Definition: Calculate Fluid Threshold From Moment Balance of Drag and Gravity Forces
 
-function solveUft(particleArray,nParticles,Cd,k,rhoAir,rhoSand,g,z0,ave)
+function solveUft(particleArray,nParticles,Cd,k,rhoAir,rhoSand,g,z0)
         P = particleArray;          % Simplify notation
         Itop = 0;                   % Top half of integral (top windward quadrant)
         Ibot = 0;                   % Integral for bottown windward quadrant            
         
     for i=1:nParticles
         if P(i).isCFM
-            z = P(i).y - ave;
             %CALULATION OF DRAG FORCE 
             %CALCULATE INTEGRAL OF WIND SPEED AND EXPOSED AREA (I)
              P(i).I = 0;             %integral of wind and area per particle
@@ -36,7 +35,7 @@ function solveUft(particleArray,nParticles,Cd,k,rhoAir,rhoSand,g,z0,ave)
                 P(i).I = Itop + Ibot;                           %add integrals to get total integral
                 % Solve for threshold shear velocity
                 c = 80000;      % (conversion step)
-                P(i).uft = sqrt((rhoSand - rhoAir)*g*(P(i).r*2/c)^3*k^2*P(i).mG/(P(i).mD*6*Cd*(P(i).I/c)*(P(i).r/c)));  %factors of ten are conversion factors between hectomicrons and meters (I is meters squared)
+                P(i).uft = sqrt((rhoSand - rhoAir)*g*(P(i).r*2/c)^3*k^2*P(i).mG/(P(i).mD*6*Kd*(P(i).I/c)*(P(i).r/c)));  %factors of ten are conversion factors between hectomicrons and meters (I is meters squared)
          end
 
      end

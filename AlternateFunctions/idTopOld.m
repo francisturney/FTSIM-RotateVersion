@@ -1,4 +1,4 @@
-% Function: idTop
+% Function: idTopOld 
 % Description: Identify Top Layer of particles by droping dummy particles and assuming
 % the particles they collide with are on top.
 

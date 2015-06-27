@@ -1,8 +1,8 @@
-function P = NormalizeMomentArms(P,N)
-   for i=1:N
-        if P(i).top
-            P(i).mG = P(i).mG/P(i).r;
-            P(i).mD = P(i).mD/P(i).r;
+function NormalizeMomentArms(particleArray,nParticles)
+   for i=1:nParticles
+        if particleArray(i).isCFM
+            particleArray(i).mG = particleArray(i).mG/particleArray(i).r;
+            particleArray(i).mD = particleArray(i).mD/particleArray(i).r;
         end
    end 
 end
