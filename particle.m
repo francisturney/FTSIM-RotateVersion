@@ -1,14 +1,17 @@
+% Class: particle
+% Description: particles represent sand grains and are essentially 2D circles which hold 
+% properties about their physics and points of contact with neighbors
 classdef particle < handle
     properties
         % Particle Geometry and Forces
-        r                       % Radius of assumed spherical particle
+        r                       % Radius of assumed circular particle
         x                       % X position of particle
         y                       % Y postition of particle
         center = [0,0]          % 2D particle center loctation for Matlab functions
         accel = [0,0,-9.8]      % 3D acceleration on a particle's center of mass
         dragMomentArm           % Moment arm that the drag force works on
         gravityMomentArm        % Moment arm the gravity works on
-        fluidThreshold          % Fluid Threshold Shear Veloicty
+        uft                     % Fluid Threshold Shear Veloicty
         
         % Indicies of adjacent particles and orientation
         isTop = false           % True/False for member of top row of particles in bed
@@ -19,6 +22,7 @@ classdef particle < handle
         LR = 0;                 % Particle oriantation coeficint: (-1) for left (1) for right
         pivotPoint = [0,0]      % Location of pivot point (considering a left to right wind)
         liftPoint  = [0,0]      % Point opposite from the pivot point that the particle lifts off
+        dummyFriend = 0;        % Index of the particle that corresponds to the dummy particle
        
     end
     methods

@@ -2,7 +2,7 @@
 % Description: Find the particle and point around which each top particle pivots, and then
 % assign moment arms.
 
-function assnPivot(particleArray,nParticles)         
+function assnPivot(particleArray, nParticles)         
     import bedGeometry.*                                                % Package of functions controlling bed Geometry
     P = particleArray;                                                  % Simplify Notation
     

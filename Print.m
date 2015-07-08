@@ -1,4 +1,5 @@
-function Print(P,N,ave)
+function Print(P,nParticles,ave)
+    N = nParticles;
     % Draw Particles in Red
     for i=1:N                                                       %Print to screen
         viscircles(P(i).center,P(i).r);

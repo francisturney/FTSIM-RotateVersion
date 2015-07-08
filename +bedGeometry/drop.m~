@@ -1,4 +1,5 @@
 
+]]]]]]]]]]]]]]]\
 % Function: drop
 % Description: Drop the jth particle untill it collides with the bed, then allign jth particle on the surface of the particles it collides with.
 

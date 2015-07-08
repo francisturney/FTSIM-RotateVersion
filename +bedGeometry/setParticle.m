@@ -1,5 +1,5 @@
-% Function : setParticle
-% Description : Initializes jth particle in bed, first by droping, and then rotating around subsequent
+% Function : initializeBed
+% Description : Initializes particle bed one , first by droping, and then rotating around subsequent
 % collided particles to find final position upon rotation reversal.
 % Input : Particle Array and index of the particle you want to set in the bed (j)
 
@@ -27,7 +27,7 @@ function setParticle(particleArray,j)
         notCollided = @(particleArray,j) isTouching(particleArray,j) == 0; %
         aboveGround = @(particleArray,j) jthParticle.y > jthParticle.r;
         
-        while notCollided(particleArray,j) && aboveGround(particleArray,j) %while not touching other particles and within bounds
+        while notCollided(particleArray,j) && aboveGround(particleArray,j) % While not touching other particles and within bounds
             rotate(particleArray,j);                                       % Rotate the jth Paticle around its touching particle
             jthParticle.landing = isTouching(particleArray,j);             % Declare landing partilce as the partice the jth particle rolls into
         end

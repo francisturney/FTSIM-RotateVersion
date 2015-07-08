@@ -2,8 +2,8 @@
 % Description: Finds the average height of the top row of particles
 
 function averageHeight = averageHeight(particleArray,nParticles) 
-import bedGeometry.*        % Package of functions controlling bed Geometry
-
+    import bedGeometry.*        % Package of functions controlling bed Geometry
+    
     averageHeight = 0;
     n = 0;
     for i=1:nParticles

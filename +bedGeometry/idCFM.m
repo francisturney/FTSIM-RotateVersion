@@ -2,8 +2,8 @@
 % Description: If the jth particle is above the particles it touches than it is a canidate for movement
 
 function idCFM(particleArray,nParticles,ave)                         
-    import bedGeometry.*        % Package of functions controlling bed Geometry  
-    P = particleArray;      % Simplify notation
+    import bedGeometry.*        % Package of functions controlling bed Geometry
+    P = particleArray;          % Simplify notation
 
     for i=1:nParticles                                               %reset top
         if P(i).isTop == true;
