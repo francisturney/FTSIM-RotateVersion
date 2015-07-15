@@ -59,8 +59,9 @@ fturney@ucla.edu}
 	
 	Solves the moment balance between lift and drag foces (Bagnold 1940),
 	\begin{equation}
-	
-    \end{equation}. Integrates the windspeed over the surface area exposed to calculate the drag force. 
+	{u_{*}}_{ft} = \left[ \frac{r_g}{r_d}\frac{\pi (\rho_p - \rho_a)}{12 \rho_a}\frac{g{D_p}^3 \kappa^2}{C_d} \left[\int\limits_{z_{bot}}^{z_{top}} {\text{ln}}^2 \left(\frac{z}{z_0}\right) \sqrt{r^2 - {(z_c-z)}^2} dz\right]^{-1}\right]^{\frac{1}{2}}.
+    \end{equation}
+    Integrates the windspeed over the surface area exposed to calculate the drag force, which is plugged into the moment balance to solve for ${u_*}_{ft}$. Note that the limits of integration are different depending on wheather the particle's lift point is above the average height of the top row of particles. If it's not then the equation is integrated up from the average height ($u = 0$, ~$z0$).
 	 
 \end{itemize}
 \end{document}

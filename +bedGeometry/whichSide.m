@@ -2,7 +2,7 @@
 % Description : Determines which side of it's touhcing particle the jth Particle is on (left/right) (LR=-1,LR=1)
 
 function LR = whichSide(particleArray,j)         
-    
+    % Changed touching to landing
     % Declare 
     import bedGeometry.*                                   % Package of functions controlling bed Geometry
     jthParticle = particleArray(j);                        % Simplify notation

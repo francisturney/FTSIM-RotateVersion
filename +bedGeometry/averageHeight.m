@@ -9,7 +9,7 @@ function averageHeight = averageHeight(particleArray,nParticles)
     for i=1:nParticles
         if particleArray(i).isTop
             n = n+1;
-            averageHeight = averageHeight + particleArray(i).y;
+            averageHeight = averageHeight + particleArray(i).z;
         end
     end
     averageHeight = averageHeight/n;

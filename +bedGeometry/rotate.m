@@ -5,11 +5,11 @@ function [] = rotate(particleArray, j)      % Rotate jth particle around the par
         touching = particleArray(j).touching;       % ...
         LR = particleArray(j).LR ;                  % ...
         
-        theta = asin((P(j).y - P(touching).y)/pdist([P(j).center; P(touching).center],'euclidean'));    
+        theta = asin((P(j).z - P(touching).z)/pdist([P(j).center; P(touching).center],'euclidean'));    
         r2 = P(j).r + P(touching).r;
-        P(j).y = P(touching).y + r2*sin(theta - (1/9)*pi);             %(1/9)pi is angle of rotation
-        P(j).x = P(touching).x + LR*r2*cos(theta - (1/9)*pi);
-        P(j).center=[P(j).x,P(j).y];
+        z = P(touching).z + r2*sin(theta - (1/9)*pi);             %(1/9)pi is angle of rotation
+        x = P(touching).x + LR*r2*cos(theta - (1/9)*pi);
+        move(particleArray,j,x,z);
 end
 
         

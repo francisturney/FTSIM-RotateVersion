@@ -10,9 +10,9 @@ function idTop(particleArray,nParticles)
     end
     for i=20:2:120
         top = false;                                                 
-        for y = 55:-2:0 
+        for z = 55:-2:0 
             for j=1:nParticles
-                if (pdist([[i,y]; particleArray(j).center],'euclidean') <= (particleArray(j).r + 5))    % If collision with bed
+                if (pdist([[i,z]; particleArray(j).center],'euclidean') <= (particleArray(j).r + 5))    % If collision with bed
                    particleArray(j).isTop = true;                               
                    top = true;  
                 end

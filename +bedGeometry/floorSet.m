@@ -11,11 +11,14 @@ import bedGeometry.*                                                     % Packa
     touch = jthParticle.touching;                                        % ... 
     x = 0;                                                               % Assin a dummy x that will be assigned to P(i).x later on
     if jthParticle.LR == 1
-        x = (P(touch).x + sqrt((P(touch).r + P(j).r).^2 - (P(j).r - P(touch).y).^2)); %intersection of y = r and circle
+        x = (P(touch).x + sqrt((P(touch).r + P(j).r).^2 - (P(j).r - P(touch).z).^2)); %intersection of y = r and circle
     else
-        x = (P(touch).x - sqrt((P(touch).r + P(j).r).^2 - (P(j).r - P(touch).y).^2)); %intersection of y = r and circle 
+        x = (P(touch).x - sqrt((P(touch).r + P(j).r).^2 - (P(j).r - P(touch).z).^2)); %intersection of y = r and circle 
     end
-    P(j).x = x;
-    P(j).y = P(j).r;
-    P(j).center = [P(j).x,P(j).y];
+    z = P(j).r;
+    P(j).z = z;                         % Set z coordinate
+    P(j).x = x;                         % Set x coordinate
+    P(j).center=[x,z];                  % Set Center
+    
+    %move(particleArray,j,x,z);
 end

@@ -1,12 +1,12 @@
 %DATA ANALYSIS 
 %extract data from P into variable mG, mD and uft
-N = 50;             %Psudeo Size for whatever matrix we are working with 
-for i=1:N
-    if Ptot(i).top
-        Ptot(i).mG = Ptot(i).mG/Ptot(i).r;
-        Ptot(i).mD = Ptot(i).mD/Ptot(i).r;
-    end
-end    
+N = 500;             %Psudeo Size for whatever matrix we are working with
+% for i=1:N
+%     if Ptot(i).CFM
+%         Ptot(i).mG = Ptot(i).mG/Ptot(i).r;
+%         Ptot(i).mD = Ptot(i).mD/Ptot(i).r;
+%     end
+% end    
 mG=[];
 mD=[];
 topNumber=0;
@@ -15,13 +15,13 @@ radii = [];
 radiusTot = [];
 for i=1:N
     radiusTot(i) = Ptot(i).r;  
-    if Ptot(i).top          
+    if Ptot(i).CFM          
         if ~isreal(Ptot(i).uft) || (Ptot(i).uft >7)                             %Elimintae outliers
             continue
         end
         topNumber = topNumber+1;                            %indicies for new array for histogram
-        mG(topNumber) = Ptot(i).mG;                        
-        mD(topNumber) = Ptot(i).mD;                       
+        %mG(topNumber) = Ptot(i).mG;                        
+        %mD(topNumber) = Ptot(i).mD;                       
         uft(topNumber) = Ptot(i).uft;
         radii(topNumber) = Ptot(i).r; 
     end

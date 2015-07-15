@@ -1,13 +1,12 @@
 % Class: particle
-% Description: particles represent sand grains and are essentially 2D
-% circles, which hold properties about, their physics and the points of
-% contact with neighbors
+% Description: particles represent sand grains and are essentially 2D circles which hold 
+% properties about their physics and points of contact with neighbors
 classdef particle < handle
     properties
         % Particle Geometry and Forces
         r                       % Radius of assumed circular particle
-        x                       % X position of particle
-        y                       % Y postition of particle
+        x                       % X coordinate of particle
+        z                       % Z coordinate of particle
         center = [0,0]          % 2D particle center loctation for Matlab functions
         accel = [0,0,-9.8]      % 3D acceleration on a particle's center of mass
         dragMomentArm           % Moment arm that the drag force works on
@@ -23,27 +22,29 @@ classdef particle < handle
         LR = 0;                 % Particle oriantation coeficint: (-1) for left (1) for right
         pivotPoint = [0,0]      % Location of pivot point (considering a left to right wind)
         liftPoint  = [0,0]      % Point opposite from the pivot point that the particle lifts off
+        dummyIndex = 0;         % Index of created dummy particle which mirrors the ith particle 
+        dummyFriend = 0;        % Index of the particle that created the dummy particle
        
     end
     methods
         % Constructor
-        function particle = particle(radius, stdDeviation)              % Constructor
+        function particle = particle(radius, stdDeviation)                 % Constructor
             if  nargin == 0
-                particle.r = 4 + 1.*randn(1,1);                       %Particle radius  
-                particle.x = 20 + (120).*rand(1);                          %x coordinate of center                                         
-                particle.y = 70;                                           %y coordinate of center
-                particle.center = [particle.x,particle.y];   
+                particle.r = 4 + 1.*randn(1,1);                            %Particle radius  
+                particle.x = 35 + ().*rand(1);                          %x coordinate of center                                         
+                particle.z = 70;                                           %z coordinate of center
+                particle.center = [particle.x,particle.z];   
             end
         end
         
         function [] = change(particleArray)
             particleArray(1).r = 0;
         end
-        function particle = move(particle, timeStep)
-           if particle.accel ~= [0,0,0];
-               
-           end
-        end
+%         function particle = move(particle, timeStep)
+%            if particle.accel ~= [0,0,0];
+%                
+%            end
+%         end
     end
     methods (Static)
         function text = secondCommand()

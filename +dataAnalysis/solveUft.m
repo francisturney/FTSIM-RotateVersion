@@ -18,12 +18,12 @@ function solveUft(particleArray,nParticles,Cd,k,rhoAir,rhoSand,g,z0,ave)
         if P(i).isCFM
             % Simplify and Declare
             I = 0;                                                              % Integral of wind speed and particle area from equation (5) 
-            zCenter = P(i).y - ave;                                             % z coordinate of the center of the particle with the average height as z = 0 
+            zCenter = P(i).z - ave;                                             % z coordinate of the center of the particle with the average height as z = 0 
             zLift = P(i).liftPoint(2) - ave;                                    % z coordinate of the lift point with the average height as z = 0
             
             % Drag force integration
             f = @(z) (log(z./z0)).^2.*(sqrt(P(i).r.^2 - (zCenter - z).^2));     % Integrand for I (equation (5)) figure (1)                                   
-            if P(i).liftPoint(2) > ave;                                         % If the lift point is above the average height of top row (u = 0)
+            if P(i).liftPoint(2) > ave + z0;                                         % If the lift point is above the average height of top row (u = 0)
                 I = integral(f, zLift, (zCenter + P(i).r));                     % numerically integrate from liftPoint to top of Particle
             else                                                                % If the lift point is below the average height of the top row 
                 I = integral(f, z0, (zCenter + P(i).r));                        % numerical integrate from z0 (u = 0), to the top of particle 

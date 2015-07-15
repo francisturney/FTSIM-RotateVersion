@@ -9,6 +9,7 @@ import bedGeometry.*        % Package of functions controlling bed Geometry
 import dataAnalysis.*       % Package of functions for data analysis and calculation
 import particle             % Class modeling individual sand particles as circles
 tic
+global nParticles           % Number of particles per bed
 
 % User Inputs
     nParticles = 50;            % Number of particles per bed formation
@@ -20,21 +21,25 @@ tic
     rhoAir = 1.2041;            % Density of air (kg/m^3) sea level from wikipedia 
     k = 0.41;                   % Von Karmen constant         
     g = 9.80665;                % Acceleration due to gravity (m/s^2) by convention 
-    z0 = 4/30;                  % Roughness Length  
+    z0 = 4/30;                  % Roughness Length D/30
 
 % Declare
 particleArray(2*nParticles) = particle;    % Create array of particles           
 totalParticleArray(2*nParticles*mRepetitions) = particle;     % Create concatenated array of particles over multiple model runs 
 
-for i=1:nParticles                      % Create particles
+for i=1:2*nParticles                      % Create particles
     particleArray(i) = particle;
 end
+% debug code
+particleArray(1).x = 125;
+particleArray(2).x = 35;
+particleArray(3).x = 34;
 
 % Model Runs
 for i=1:(mRepetitions)
     fprintf('On model run number %f\n',i);
-    %try
-        initializeBed(particleArray,nParticles)          % Place Particles in Bed      
+    %try      
+        newInitializeBed(particleArray)                  % Place Particles in Bed      
 
         idTop(particleArray,nParticles);                 % Identify Top Row of Particles
 
@@ -47,19 +52,21 @@ for i=1:(mRepetitions)
         assnLift(particleArray, nParticles);             % Assign Lift Point (for area exposed to flow)
         
         % Find the Fluid Threshold Shear Velocity For Each Particle
-        solveUft(particleArray,nParticles,Cd,k,rhoAir,rhoSand,g,z0,ave);            
+        solveUft(particleArray,nParticles,Cd,k,rhoAir,rhoSand,g,z0,ave); 
+        
+        %NormalizeMomentArms(particleArray, nParticles);  % Normalize Moment Arms
 
         P = gatherData(particleArray,nParticles);        % Make Structure Array to easily view properties
         
         Print(particleArray, nParticles, ave);           % Print Particle Bed
 
-        NormalizeMomentArms(particleArray, nParticles);  % Normalize Moment Arms
-
         % Assimilate particle array into total particle Array    
             if i==1
                 totalParticleArray = particleArray;
+                Ptot = P;
             else
                 totalParticleArray = [totalParticleArray,particleArray];
+                Ptot = [Ptot, P];
             end
     %catch
         %disp('Error')

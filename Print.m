@@ -21,15 +21,15 @@ function Print(P,nParticles,ave)
         if P(i).isCFM;
             if (P(i).pivotPoint ~= 0)
                 lineX = [P(i).x; P(i).pivotPoint(1)];
-                lineY = [P(i).y; P(i).pivotPoint(2)];
+                lineY = [P(i).z; P(i).pivotPoint(2)];
                 line(lineX,lineY,'Color','k');
             end
         end
     end
     % Draw Average Height in Dashed Black Line
     x = linspace(0,160,100);
-    y = linspace(ave,ave,100);
-    plot(x,y,'--k','LineWidth', 1);
+    z = linspace(ave,ave,100);
+    plot(x,z,'--k','LineWidth', 1);
     
     % Draw Anti Pivot Points in Blue
     for i=1:N

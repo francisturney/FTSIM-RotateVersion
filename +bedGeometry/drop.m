@@ -7,12 +7,14 @@ function drop(particleArray,j)
 import bedGeometry.*                         % Package of functions controlling bed Geometry
 jthParticle = particleArray(j);              % More readable notation
 
-    while (jthParticle.y > jthParticle.r)                         
-        	jthParticle.y = jthParticle.y - .5;                   % Move jth particle downward by some increment
-            jthParticle.center=[jthParticle.x, jthParticle.y];  % Update center
-            if jthParticle.y < jthParticle.r                    % If jth particle's center passes the floor place it there
-               jthParticle.y = jthParticle.r;
-               jthParticle.center=[jthParticle.x, jthParticle.y];
+    while (jthParticle.z > jthParticle.r)                         
+        	jthParticle.z = jthParticle.z - .5;                   % Move jth particle downward by some increment
+            jthParticle.center=[jthParticle.x, jthParticle.z];  % Update center
+            if jthParticle.z < jthParticle.r                    % If jth particle's center passes the floor place it there
+               jthParticle.z = jthParticle.r;
+               jthParticle.center=[jthParticle.x, jthParticle.z];
+               viscircles(particleArray(j).center,particleArray(j).r,'EdgeColor', 'b');  % debug
+                pause;
                break
             end
             if isTouching(particleArray,j) ~= 0                                 % If jth particle touches another particle (touching returns index of the touched)
