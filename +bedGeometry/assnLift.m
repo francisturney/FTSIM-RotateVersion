@@ -1,7 +1,9 @@
 % Function: assnAntiPivot
 % Description: Assign Lift Particles and Create Lift Point 
 
-function assnLift(particleArray, nParticles)                    
+function assnLift(particleArray)    
+    global nParticles
+    global nDummies
     import bedGeometry.*                                        % Package of functions controlling bed Geometry
     theta = 0;                                                  % theta is the angle between gravity force and lever arm
     beta = 0;                                                   % beta is the angle between drag force and lever arm 
@@ -12,7 +14,7 @@ function assnLift(particleArray, nParticles)
            liftParticle = 0;                                    % index of Particle that jth particle lifts off of
            
            % Assign Lift Particle
-           for j=2:nParticles                                                            %look at all particles that could touch
+           for j=2:nParticles + nDummies                                                           %look at all particles that could touch
                if P(i).x > P(j).x                                               %look only to the right of top particles
                    if pdist([P(i).center; P(j).center],'euclidean') <= (P(i).r + P(j).r + 0.5) % look for touching particle (.05 is an error term)
                        if liftParticle == 0;                                   %if there was no other pivot particle

@@ -27,7 +27,10 @@ function newInitializeBed(particleArray)
         % Drop
         inLine = 0;                             % Particles in the way of P(i)
         k = 0;                                  % Number of particle in the way of P(i)
-        for j=(i-1):-1:1
+        for j=(nParticles + nDummies):-1:1
+            if (j >= i) && (j <= 50);
+                continue;
+            end            
             iRight = P(i).x + P(i).r;           % Boundaries of P(i)'s and P(j)'s projection on the x-axis
             iLeft = P(i).x - P(i).r;
             jRight = P(j).x + P(j).r;
@@ -46,13 +49,6 @@ function newInitializeBed(particleArray)
         end
         [M,iTouch] = max(inLine);
         P(i).touching = iTouch;
-%         if k > 1                % If in the way of multiple particles 
-%             inLine(iLand) = 0;
-%             [M,iTouch] = max(inLine);
-%             P(i).touching = iTouch;
-%             place(P,i);
-%             continue
-%         end
   
         % Place From Drop
         P(i).z = P(iTouch).z + sqrt((P(i).r + P(iTouch).r)^2 - (P(i).x - P(iTouch).x)^2);
@@ -61,20 +57,28 @@ function newInitializeBed(particleArray)
         pause;
         
         
-        % Place unitl wedged
+        % Place Unitl Wedged
         k = 0;
+        l = 0;
+        oldTouch = 0;
         while notWedged(P,i)
             terminate = false;
             k = k + 1;
-            if k > 1
+            %iTouch = P(i).touching;
+            %iLand = P(i).landing;
+            if k > 1 %&& (switched < 10)     % (P(iLand).z < P(iTouch).z)
                  P(i).touching = P(i).landing;
                  P(i).landing = 0;
             end
+            switched = 0;
             Dist = [];
             Min = 0;
             P(i).LR = whichSide(P,i);
             if P(i).LR == -1;
-                for j=(i-1):-1:1
+                for j=(nParticles + nDummies):-1:1
+                    if (j >= i) && (j <= 50);
+                        continue;
+                    end   
                     if P(j).x < P(P(i).touching).x 
                         Dist(j) = pdist([P(i).center; P(j).center],'euclidean');
                     else
@@ -84,16 +88,26 @@ function newInitializeBed(particleArray)
                     P(i).landing = iLand;
                 end
             else if P(i).LR == 1;
-                    for j=(i-1):-1:1
-                        if P(j).x > P(P(i).touching).x 
-                            Dist(j) = pdist([P(i).center; P(j).center],'euclidean');
-                        else
-                            Dist(j) = 200;
-                        end
-                        [Min,iLand] = min(Dist);
-                        P(i).landing = iLand;
-                    end    
+                for j=(nParticles + nDummies):-1:1
+                    if (j >= i) && (j <= 50);
+                        continue;
+                    end   
+                    if P(j).x > P(P(i).touching).x 
+                        Dist(j) = pdist([P(i).center; P(j).center],'euclidean');
+                    else
+                        Dist(j) = 200;
+                    end
+                    [Min,iLand] = min(Dist);
+                    P(i).landing = iLand;
+                end    
                 end
+            end
+            if Min == 200;
+                    floorSet(P,i);
+                    viscircles(P(i).center,P(i).r, 'EdgeColor', 'b')   % debug
+                    pause;
+                    terminate = true;
+                    break
             end
             while ~place(P,i)
                 Dist(iLand) = 200; % Distance to iLand is much farther     
@@ -111,10 +125,23 @@ function newInitializeBed(particleArray)
             %viscircles(P(i).center,P(i).r);   % debug
             %pause;
             while isTouching2(P,i) > 0
+                switched = switched + 1;
                 P(i).prevTouch = P(i).landing;
                 P(i).landing = isTouching2(P,i);
                 P(i).touching = P(i).prevTouch;
                 place(P,i);
+                if P(i).touching == oldTouch
+                    l = l + 1
+                end
+                if l > 5
+                    k = 0;
+                end
+                oldTouch = P(i).touching;
+                % Reset for next loop
+%                 prevTouch = P(i).prevTouch;         % Save Ptouch 
+%                 P(i).prevTouch = P(i).landing;      % Save P(i).landing
+%                 P(i).landing = P(i).touching;       % Switch landing and touching for next loop (because it will switch it back)
+%                 P(i).touching = prevTouch;
                 viscircles(P(i).center,P(i).r);   % debug
                 fprintf('P(i).touching = %f P(iTouch).x = %f\n',P(i).touching,P(P(i).touching).x)
                 fprintf('P(i).landing = %f P(iLand).x = %f\n',P(i).landing,P(P(i).landing).x)

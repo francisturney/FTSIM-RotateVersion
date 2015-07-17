@@ -31,9 +31,9 @@ for i=1:2*nParticles                      % Create particles
     particleArray(i) = particle;
 end
 % debug code
-particleArray(1).x = 125;
-particleArray(2).x = 35;
-particleArray(3).x = 34;
+% particleArray(1).x = 125;
+% particleArray(2).x = 35;
+% particleArray(3).x = 34;
 
 % Model Runs
 for i=1:(mRepetitions)
@@ -41,15 +41,15 @@ for i=1:(mRepetitions)
     %try      
         newInitializeBed(particleArray)                  % Place Particles in Bed      
 
-        idTop(particleArray,nParticles);                 % Identify Top Row of Particles
+        idTop(particleArray);                            % Identify Top Row of Particles
 
         ave = averageHeight(particleArray,nParticles);   % Calculate Average Height of Top Row
 
         idCFM(particleArray,nParticles, ave);            % Identify Canidates For Movement
 
-        assnPivot(particleArray, nParticles);            % Assign Pivot Point and Moment Arms 
+        assnPivot(particleArray);            % Assign Pivot Point and Moment Arms 
             
-        assnLift(particleArray, nParticles);             % Assign Lift Point (for area exposed to flow)
+        assnLift(particleArray);             % Assign Lift Point (for area exposed to flow)
         
         % Find the Fluid Threshold Shear Velocity For Each Particle
         solveUft(particleArray,nParticles,Cd,k,rhoAir,rhoSand,g,z0,ave); 
@@ -58,7 +58,7 @@ for i=1:(mRepetitions)
 
         P = gatherData(particleArray,nParticles);        % Make Structure Array to easily view properties
         
-        Print(particleArray, nParticles, ave);           % Print Particle Bed
+        Print(particleArray, ave);           % Print Particle Bed
 
         % Assimilate particle array into total particle Array    
             if i==1

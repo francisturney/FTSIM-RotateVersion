@@ -2,7 +2,9 @@
 % Description: Find the particle and point around which each top particle pivots, and then
 % assign moment arms.
 
-function assnPivot(particleArray, nParticles)         
+function assnPivot(particleArray)    
+    global nDummies
+    global nParticles
     import bedGeometry.*                                                % Package of functions controlling bed Geometry
     P = particleArray;                                                  % Simplify Notation
     
@@ -11,7 +13,7 @@ function assnPivot(particleArray, nParticles)
            pivotParticle = 0;                      % Index of the Particle that the jth particle pivots around
            
            % Assing Pivot Particle
-           for j=2:nParticles                                                       % Look at all particles that could touch
+           for j=2:nParticles + nDummies                                                       % Look at all particles that could touch
                if P(i).x < P(j).x                                          % Look only to the right of top particles
                    if pdist([P(i).center; P(j).center],'euclidean') <= (P(i).r + P(j).r +.05) % look for touching particle (.05 is an error term)
                        if pivotParticle == 0;                                                %if there was no other pivot particle

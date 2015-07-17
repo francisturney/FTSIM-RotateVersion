@@ -16,9 +16,8 @@ import bedGeometry.*                                                     % Packa
         x = (P(touch).x - sqrt((P(touch).r + P(j).r).^2 - (P(j).r - P(touch).z).^2)); %intersection of y = r and circle 
     end
     z = P(j).r;
-    P(j).z = z;                         % Set z coordinate
-    P(j).x = x;                         % Set x coordinate
-    P(j).center=[x,z];                  % Set Center
-    
-    %move(particleArray,j,x,z);
+%     P(j).z = z;                         % Set z coordinate
+%     P(j).x = x;                         % Set x coordinate
+%     P(j).center=[x,z];                  % Set Center  
+    move(particleArray,j,x,z);
 end

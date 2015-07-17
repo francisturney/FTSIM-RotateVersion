@@ -1,7 +1,10 @@
-function Print(P,nParticles,ave)
+function Print(P,ave)
+    global nParticles
+    global nDummies
+    clf
     N = nParticles;
     % Draw Particles in Red
-    for i=1:N                                                       %Print to screen
+    for i=1:N + nDummies                                                       %Print to screen
         viscircles(P(i).center,P(i).r);
     end
     % Draw Top Row of Particles in Blue
@@ -43,5 +46,7 @@ xlabel('distance(mm)','FontSize',20,...
        'FontName','Times');
 ylabel('height(mm)','FontSize',20,...
        'FontName','Times');
+axis[30 130 0 60]
+axis square
 
 end

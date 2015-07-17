@@ -25,10 +25,11 @@ function real = place(particleArray,j)
          R = roots(f);
          z = max(R);
          x = (1/2)*(a-2*b*z); 
-         if isreal(z)    
-            P(j).z = z;                         % Set z coordinate
-            P(j).x = x;                         % Set x coordinate
-            P(j).center=[x,z];                  % Set Center
+         if isreal(z) 
+            move(P,j,x,z);
+%             P(j).z = z;                         % Set z coordinate
+%             P(j).x = x;                         % Set x coordinate
+%             P(j).center=[x,z];                  % Set Center
          else
              real = false;
              fprintf('Imaginary Roots when trying to Place P(%d)\n',j)

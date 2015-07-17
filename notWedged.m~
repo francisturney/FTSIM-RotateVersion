@@ -1,8 +1,0 @@
-function wedged = notWedged(P,i)
-    wedged = false; 
-    if P(i).touching == 0;
-        return
-    end
-    if P(i).x < P(i).touching && P(i).x > P(i).landing || P(i).x < P(i).touching && P(i).x > P(i).landing
-        
-        
